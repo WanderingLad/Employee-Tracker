@@ -1,31 +1,80 @@
-const express = require('express');
-const path = require('path');
-const api = require('./routes/index.js');
+const mysql = require('mysql2');
+const quest = require('./Main/Questions');
 
-const PORT = process.env.PORT || 3001;
-
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/api', api);
-
-app.use(express.static('public'));
-
-// GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/index.html'))
+// Connect to database
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    user: 'root',
+    password: 'alphabetsoup',
+    database: 'employee_db'
+  },
+  console.log(`Connected to the employee_db database.`)
 );
 
-// GET Route for feedback page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/pages/notes.html'))
-);
+async function init()
+{
+    let stop = false;
+    
+    try
+    {
+        let man = await inquirer.prompt(Questions.getManager());
+        let manager = new Manager(man.name, man.id, man.email, man.officeNumber);
+        employees = [...employees, manager];
 
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/pages/404.html'))
-);
+        do
+        {
+            let ans = await inquirer.prompt(Questions.getIntro());
 
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
-);
+            switch(ans.employeeType)
+            {                
+                case "Engineer":
+                    let eng = await inquirer.prompt(Questions.getEngineer());
+                    let engi = new Engineer(eng.name, eng.id, eng.email, eng.github);
+                    employees = [...employees, engi];
+                    break;
+                
+                case "Intern":
+                    let int = await inquirer.prompt(Questions.getIntern());
+                    let inte = new Intern(int.name, int.id, int.email, int.school);
+                    employees = [...employees, inte];
+                    break;
+
+                default:
+                    console.log("That's All folks!");
+                    stop = true;
+                    ht.fileCreation(employees);
+            }
+
+            if(ans.employeeType === 'No more employees!')
+            {
+                stop = true;
+            }
+            
+        }while(!stop);
+    }
+    catch (error) 
+    {
+        console.log("error: " + error);
+    }
+}
+
+init()
+
+// Create a movie
+app.post('/api/new-movie', ({ body }, res) => {
+  const sql = `INSERT INTO movies (movie_name)
+    VALUES (?)`;
+  const params = [body.movie_name];
+  
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: 'success',
+      data: body
+    });
+  });
+});
