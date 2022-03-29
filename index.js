@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const quest = require('./Main/Questions');
+const inquirer = require("inquirer");
 
 // Connect to database
 const db = mysql.createConnection(
@@ -18,11 +19,21 @@ async function init()
     
     try
     {
-        let man = await inquirer.prompt(Questions.getManager());
-        let manager = new Manager(man.name, man.id, man.email, man.officeNumber);
-        employees = [...employees, manager];
-
-        do
+      let ans = await inquirer.prompt(quest.toDo());
+      console.log(ans);
+      const sql = `INSERT INTO department VALUES ("Accounting")`;
+      const params = [body.movie_name];
+  
+      db.query(sql, params, (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: 'success',
+          data: body
+        });});
+        /* do
         {
             let ans = await inquirer.prompt(Questions.getIntro());
 
@@ -51,7 +62,7 @@ async function init()
                 stop = true;
             }
             
-        }while(!stop);
+        }while(!stop); */
     }
     catch (error) 
     {
@@ -62,7 +73,7 @@ async function init()
 init()
 
 // Create a movie
-app.post('/api/new-movie', ({ body }, res) => {
+/* app.post('/api/new-movie', ({ body }, res) => {
   const sql = `INSERT INTO movies (movie_name)
     VALUES (?)`;
   const params = [body.movie_name];
@@ -77,4 +88,4 @@ app.post('/api/new-movie', ({ body }, res) => {
       data: body
     });
   });
-});
+}); */
