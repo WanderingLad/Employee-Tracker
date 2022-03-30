@@ -69,13 +69,13 @@ const addEmployee = function ()
         },
         {
             type: 'input',
-            message: "What is the employee's role?",
-            name: 'employeeRole',
+            message: "What is the employee's role id?",
+            name: 'employeeRoleID',
         },
         {
             type: 'input',
-            message: "Who is the employee's manager?",
-            name: 'employeeManager',
+            message: "Who is the employee's manager's id?",
+            name: 'employeeManagerID',
         },
         
     ];

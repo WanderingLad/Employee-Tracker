@@ -25,18 +25,42 @@ async function init()
           let ans = await inquirer.prompt(quest.toDo());
 
             switch(ans.choice)
-            {                
+            {   
                 case "View All Employees":
                   db.query(
                     'SELECT * FROM employee ORDER BY id ASC',
-                    function(err, rows) {
-                      console.table(rows);
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.table(rows);
+                      }
                     }
                   );
                   break;
                 
                 case "Add an Employee":
-                    break;
+                  let {employeeFirstName, employeeLastName, employeeRoleID, employeeManagerID} = await inquirer.prompt(quest.addEmployee());
+                  db.query(
+                    `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES 
+                    ("${employeeFirstName}", "${employeeLastName}", ${employeeRoleID}, ${employeeManagerID})`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.table(rows);
+                      }
+                    }
+                  );
+                  break;
 
                 case "Update an Employee Role":
                     break;
@@ -53,14 +77,8 @@ async function init()
                 case "Add a Department":
                     break;
                 
-                default:
-                    console.log("That's All folks!");
+                case "Quit":
                     stop = true;
-            }
-
-            if(ans.choice === 'Quit')
-            {
-                stop = true;
             }
             
         }while(!stop);
