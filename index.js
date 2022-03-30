@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 const quest = require('./Main/Questions');
 const inquirer = require("inquirer");
+const table = require("console.table");
 
 // Connect to database
 const db = mysql.createConnection(
@@ -18,51 +19,51 @@ async function init()
     let stop = false;
     
     try
-    {
-      let ans = await inquirer.prompt(quest.toDo());
-      console.log(ans);
-      const sql = `INSERT INTO department VALUES ("Accounting")`;
-      const params = [body.movie_name];
-  
-      db.query(sql, params, (err, result) => {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          return;
-        }
-        res.json({
-          message: 'success',
-          data: body
-        });});
-        /* do
+    {  
+         do
         {
-            let ans = await inquirer.prompt(Questions.getIntro());
+          let ans = await inquirer.prompt(quest.toDo());
 
-            switch(ans.employeeType)
+            switch(ans.choice)
             {                
-                case "Engineer":
-                    let eng = await inquirer.prompt(Questions.getEngineer());
-                    let engi = new Engineer(eng.name, eng.id, eng.email, eng.github);
-                    employees = [...employees, engi];
+                case "View All Employees":
+                  db.query(
+                    'SELECT * FROM employee ORDER BY id ASC',
+                    function(err, rows) {
+                      console.table(rows);
+                    }
+                  );
+                  break;
+                
+                case "Add an Employee":
+                    break;
+
+                case "Update an Employee Role":
+                    break;
+
+                case "View All Roles":
+                    break;
+
+                case "Add a Role":
+                    break;
+
+                case "View All Departments":
+                    break;
+
+                case "Add a Department":
                     break;
                 
-                case "Intern":
-                    let int = await inquirer.prompt(Questions.getIntern());
-                    let inte = new Intern(int.name, int.id, int.email, int.school);
-                    employees = [...employees, inte];
-                    break;
-
                 default:
                     console.log("That's All folks!");
                     stop = true;
-                    ht.fileCreation(employees);
             }
 
-            if(ans.employeeType === 'No more employees!')
+            if(ans.choice === 'Quit')
             {
                 stop = true;
             }
             
-        }while(!stop); */
+        }while(!stop);
     }
     catch (error) 
     {
@@ -70,22 +71,4 @@ async function init()
     }
 }
 
-init()
-
-// Create a movie
-/* app.post('/api/new-movie', ({ body }, res) => {
-  const sql = `INSERT INTO movies (movie_name)
-    VALUES (?)`;
-  const params = [body.movie_name];
-  
-  db.query(sql, params, (err, result) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-      return;
-    }
-    res.json({
-      message: 'success',
-      data: body
-    });
-  });
-}); */
+init();
