@@ -46,7 +46,7 @@ const addRole = function ()
         },
         {
             type: 'input',
-            message: "What is the department for this role?",
+            message: "What is the department related to this role?",
             name: 'roleDepartment',
         },
         

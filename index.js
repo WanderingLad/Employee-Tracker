@@ -100,9 +100,9 @@ async function init()
                     break;
 
                 case "Add a Role":
-                  let {employeeToUpdate, employeeNewRoleID} = await inquirer.prompt(quest.updateEmployee());
+                  let {roleName, roleSalary, roleDepartment} = await inquirer.prompt(quest.addRole());
                   db.query(
-                    `UPDATE employee SET employee.role_id = ${employeeNewRoleID} WHERE employee.id = ${employeeToUpdate}`,
+                    `INSERT INTO roles (title, salary, department_id) VALUES(${roleName}, ${roleSalary}, ${roleDepartment})`,
                     function(err, rows) 
                     {
                       if(err)
@@ -136,9 +136,9 @@ async function init()
                     break;
 
                 case "Add a Department":
-                  let {employeeToUpdate, employeeNewRoleID} = await inquirer.prompt(quest.updateEmployee());
+                  let {departmentName} = await inquirer.prompt(quest.addDepartment());
                   db.query(
-                    `UPDATE employee SET employee.role_id = ${employeeNewRoleID} WHERE employee.id = ${employeeToUpdate}`,
+                    `INSERT INTO department (dept_name) VALUES (${departmentName})`,
                     function(err, rows) 
                     {
                       if(err)
