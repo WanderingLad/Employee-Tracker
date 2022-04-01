@@ -1,25 +1,25 @@
 # Employee Tracker
 
 ## Description
-This is a Team Profile Generator. The point of this project is to take in information from a user and compile it into a web page that displays the members of a team.
+This is an Employee Tracker. The point of this project is to have a list of employees that you can sort through and edit.
   
 ## Installation
 Node.js https://nodejs.org/en/
 NPM Inquirer https://www.npmjs.com/
-NPM Jest https://www.npmjs.com/package/jest
+NPM MySQL2 https://www.npmjs.com/package/mysql2
+NPM Console Table https://www.npmjs.com/package/console.table
 Are required to run this project.
 npm install inquirer
-npm install jest
+npm install mysql2
+npm install console.table
 
 ## Usage
-After downloading the project, run npm install inquirer and npm install jess to install the required libraries. 
-Once the project is runnable, enter in a initial manager's name and fill out your team of engineers and interns as you please!
+After downloading the project, run npm install inquirer, npm install mysql2, npm install console.table and to install the required libraries. 
+Once the project is runnable, run 'source Databases/schema.sql;' then 'source Databases/seeds.sql;' to setup your databases. Followed by npm i.
+Then finally node index to run the project.
   
 ## Credits
 James Reilly - https://github.com/WanderingLad/
-
-## Walkthrough Video
-https://youtu.be/-XorR2NQfi4
   
 ## License
 BSD 2-Clause License
