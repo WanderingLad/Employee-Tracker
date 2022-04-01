@@ -86,15 +86,14 @@ const updateEmployee = function ()
     return employeeQuestions = 
     [
         {
-            type: 'list',
+            type: 'input',
             message: "Choose an Employee's id",
-            choices:[],
             name: 'employeeToUpdate',
         },
         {
             type: 'input',
-            message: "What is the employee's new role?",
-            name: 'employeeNewRole',
+            message: "What is the employee's new role id?",
+            name: 'employeeNewRoleID',
         }
         
     ];

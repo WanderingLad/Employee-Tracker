@@ -64,8 +64,9 @@ async function init()
                   break;
 
                 case "Update an Employee Role":
+                  let {employeeToUpdate, employeeNewRoleID} = await inquirer.prompt(quest.updateEmployee());
                   db.query(
-                    'SELECT * FROM employee ORDER BY id ASC',
+                    `UPDATE employee SET employee.role_id = ${employeeNewRoleID} WHERE employee.id = ${employeeToUpdate}`,
                     function(err, rows) 
                     {
                       if(err)
@@ -74,37 +75,82 @@ async function init()
                       }
                       else
                       {
-                        console.table(rows);
-                      }
-                    }
-                  );
-                  let {employeeToUpdate, employeeNewRole} = await inquirer.prompt(quest.updateEmployee());
-                  db.query(
-                    `UPDATE employee SET employee.role_id = ${employeeNewRole} WHERE id = ${employeeToUpdate}`,
-                    function(err, rows) 
-                    {
-                      if(err)
-                      {
-                        console.log(err);
-                      }
-                      else
-                      {
-                        console.table(rows);
+                        console.log("Successfully Updated");
                       }
                     }
                   );
                     break;
 
                 case "View All Roles":
+                  db.query(
+                    `SELECT * FROM roles`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.log();
+                        console.table(rows);
+                      }
+                    }
+                  );
                     break;
 
                 case "Add a Role":
+                  let {employeeToUpdate, employeeNewRoleID} = await inquirer.prompt(quest.updateEmployee());
+                  db.query(
+                    `UPDATE employee SET employee.role_id = ${employeeNewRoleID} WHERE employee.id = ${employeeToUpdate}`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.log("Successfully Updated");
+                      }
+                    }
+                  );
                     break;
 
                 case "View All Departments":
+                  db.query(
+                    `SELECT * FROM roles`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.log();
+                        console.table(rows);
+                      }
+                    }
+                  );
                     break;
 
                 case "Add a Department":
+                  let {employeeToUpdate, employeeNewRoleID} = await inquirer.prompt(quest.updateEmployee());
+                  db.query(
+                    `UPDATE employee SET employee.role_id = ${employeeNewRoleID} WHERE employee.id = ${employeeToUpdate}`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.log("Successfully Updated");
+                      }
+                    }
+                  );
                     break;
                 
                 case "Quit":
