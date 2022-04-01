@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const quest = require('./Main/Questions');
 const inquirer = require("inquirer");
-const table = require("console.table");
+const cTable = require("console.table");
 
 // Connect to database
 const db = mysql.createConnection(
@@ -37,6 +37,7 @@ async function init()
                       }
                       else
                       {
+                        console.log();
                         console.table(rows);
                       }
                     }
@@ -63,6 +64,35 @@ async function init()
                   break;
 
                 case "Update an Employee Role":
+                  db.query(
+                    'SELECT * FROM employee ORDER BY id ASC',
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.table(rows);
+                      }
+                    }
+                  );
+                  let {employeeToUpdate, employeeNewRole} = await inquirer.prompt(quest.updateEmployee());
+                  db.query(
+                    `UPDATE employee SET employee.role_id = ${employeeNewRole} WHERE id = ${employeeToUpdate}`,
+                    function(err, rows) 
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        console.table(rows);
+                      }
+                    }
+                  );
                     break;
 
                 case "View All Roles":

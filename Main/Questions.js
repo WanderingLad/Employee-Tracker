@@ -87,7 +87,7 @@ const updateEmployee = function ()
     [
         {
             type: 'list',
-            message: "Chose an Employee",
+            message: "Choose an Employee's id",
             choices:[],
             name: 'employeeToUpdate',
         },
