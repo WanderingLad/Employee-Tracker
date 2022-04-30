@@ -102,7 +102,7 @@ async function init()
                 case "Add a Role":
                   let {roleName, roleSalary, roleDepartment} = await inquirer.prompt(quest.addRole());
                   db.query(
-                    `INSERT INTO roles (title, salary, department_id) VALUES(${roleName}, ${roleSalary}, ${roleDepartment})`,
+                    `INSERT INTO roles (title, salary, department_id) VALUES("${roleName}", ${roleSalary}, ${roleDepartment})`,
                     function(err, rows) 
                     {
                       if(err)
@@ -119,7 +119,7 @@ async function init()
 
                 case "View All Departments":
                   db.query(
-                    `SELECT * FROM roles`,
+                    `SELECT * FROM department`,
                     function(err, rows) 
                     {
                       if(err)
@@ -138,7 +138,7 @@ async function init()
                 case "Add a Department":
                   let {departmentName} = await inquirer.prompt(quest.addDepartment());
                   db.query(
-                    `INSERT INTO department (dept_name) VALUES (${departmentName})`,
+                    `INSERT INTO department (dept_name) VALUES ("${departmentName}")`,
                     function(err, rows) 
                     {
                       if(err)
