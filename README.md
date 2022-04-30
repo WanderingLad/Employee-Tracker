@@ -1,7 +1,7 @@
 # Employee Tracker
 
 ## Description
-This is an Employee Tracker. The point of this project is to have a list of employees that you can sort through and edit.
+This is an Employee Tracker. You can create, edit and track employees, roles, and departments for whatever needs you may have. Using MySQL and inquirer mainly, this project is a simple relational database backend.
   
 ## Installation
 Node.js https://nodejs.org/en/
@@ -17,6 +17,9 @@ npm install console.table
 After downloading the project, run npm install inquirer, npm install mysql2, npm install console.table and to install the required libraries. 
 Once the project is runnable, run 'source Databases/schema.sql;' then 'source Databases/seeds.sql;' to setup your databases. Followed by npm i.
 Then finally node index to run the project.
+  
+## Walkthrough
+https://youtu.be/RcTHHgnHT1o
   
 ## Credits
 James Reilly - https://github.com/WanderingLad/
